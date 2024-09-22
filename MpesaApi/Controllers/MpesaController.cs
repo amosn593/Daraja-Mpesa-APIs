@@ -158,9 +158,21 @@ namespace MpesaApi.Controllers
         }
 
         // POST api/<MpesaController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("StkPushCallBackUrl")]
+        public async Task<IActionResult> StkPushCallBackUrl([FromBody] StkResultObject stkResultObject)
         {
+            try
+            {
+                var json = JsonConvert.SerializeObject(stkResultObject);
+
+                Console.WriteLine(json);
+
+                return Ok(stkResultObject);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<MpesaController>/5
